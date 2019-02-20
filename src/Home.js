@@ -1,10 +1,6 @@
-import React, { Component } from 'react';
-import './App.css';
-import Home from './Home';
-import Slides from './Slides';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import React from 'react';
 
-class App extends Component {
+export default class Home extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -78,18 +74,32 @@ class App extends Component {
     openWindowOrTab(url = window.location.href) {
         window.open(url, '_blank');
     }
-    render() {
-        return (
-            <BrowserRouter>
-            <main className="App">
-              <Switch>
-                <Route path="/" exact component={Home}/>
-                <Route path="/slides" component={Slides} />
-              </Switch>
-            </main>
-          </BrowserRouter>
-        );
+    render(){
+        return(
+            <header className="App-header">
+                <h1>Experimenting with Desktop PWAs</h1>
+                <h2>Modified 20/02 for AB Tasty</h2>
+                <a href="/slides"><h2>Link to Slides</h2></a>
+                {this.shouldShowAddButton() ? (
+                    <button onClick={this.addToHome}>
+                        Add to Home Screen
+                    </button>
+                ) : null}
+                <a href="https://developers.google.com/web/progressive-web-apps">
+                    PWAs
+                </a>
+                <a href="chrome://flags/">Chrome Flags</a>
+                <h3>Test window.open() behaviour :</h3>
+                <a onClick={this.openWindowOrTab}>
+                    window.open() in new window/tab for same domain
+                </a>
+                <a
+                    onClick={() =>
+                        this.openWindowOrTab('https://www.google.com/')
+                    }>
+                    window.open() in new window/tab for different domain
+                </a>
+            </header>
+        )
     }
 }
-
-export default App;
